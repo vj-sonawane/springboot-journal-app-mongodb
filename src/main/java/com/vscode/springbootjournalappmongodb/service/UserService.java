@@ -29,7 +29,7 @@ public class UserService {
     public void saveUser(User user) {
         log.info("UserService::saveUser RequestBody{}", user);
         userRepository.save(user);
-        log.info("user saved successfully");
+        log.info("user {} saved successfully",user.getUserName());
     }
 
     public void saveNewUser(User user) {

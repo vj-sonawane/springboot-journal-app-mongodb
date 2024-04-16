@@ -40,8 +40,19 @@ public class UserService {
         log.info("user saved successfully with encoded password");
     }
 
+    public void saveAdmin(User user) {
+        log.debug("UserService::SaveAdmin UserRequestBody {}", user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(List.of("USER","ADMIN"));
+        userRepository.save(user);
+        log.info("user {} saved successfully with encoded password",user.getUserName());
+    }
+
     public List<User> getAll() {
-        return userRepository.findAll();
+        log.info("Inside UserService::getAll");
+        List<User> users = userRepository.findAll();
+        log.debug("List of Users: [{}]",users);
+        return users;
     }
 
     public Optional<User> getUserById(ObjectId id) {

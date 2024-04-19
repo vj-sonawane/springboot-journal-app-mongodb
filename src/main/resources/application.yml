@@ -1,21 +1,7 @@
-#spring:
-#  output:
-#    ansi:
-#      enabled: always
-#  data:
-#    mongodb:
-#      auto-index-creation: 'true'
-#      database: journaldb
-#      uri: mongodb+srv://vijayuidzephyr:HlWm5jvxpat3UBjU@cluster0.wfiuv5m.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-#  application:
-#    name: JournalManagement
-#  devtools:
-#    restart:
-#      enabled: 'true'
-#logging:
-#  file:
-#    name: loggers.log
-#  level:
-#    com:
-#      vscode:
-#        springbootjournalappmongodb: DEBUG
+server:
+  port: 9090
+  servlet:
+    context-path: /app
+spring:
+  profiles:
+    active: dev

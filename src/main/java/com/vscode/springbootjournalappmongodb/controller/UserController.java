@@ -1,6 +1,9 @@
 package com.vscode.springbootjournalappmongodb.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.vscode.springbootjournalappmongodb.api.response.ProductResponse;
 import com.vscode.springbootjournalappmongodb.model.User;
+import com.vscode.springbootjournalappmongodb.service.FakeStoreApiService;
 import com.vscode.springbootjournalappmongodb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/user")
@@ -19,6 +24,9 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
+    @Autowired
+    private FakeStoreApiService fakeStoreApiService;
 
 
     @PutMapping("/updateUser")
@@ -39,5 +47,10 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
+    @GetMapping("/users")
+    public ResponseEntity<?> getUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String products = fakeStoreApiService.getProducts();
+        return new ResponseEntity<>("Hi " + authentication.getName() + "products are :" + products, HttpStatus.OK);
+    }
 }

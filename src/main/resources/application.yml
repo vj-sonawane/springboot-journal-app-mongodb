@@ -1,7 +1,7 @@
 server:
   port: 9090
-  servlet:
-    context-path: /app
+#  servlet:
+#    context-path: /app
 spring:
   profiles:
     active: dev

@@ -21,3 +21,5 @@ logging:
     com:
       vscode:
         springbootjournalappmongodb: DEBUG
+
+POST_API: https://fakestoreapi.com/users

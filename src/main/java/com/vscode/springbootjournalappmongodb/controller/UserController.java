@@ -2,6 +2,7 @@ package com.vscode.springbootjournalappmongodb.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.vscode.springbootjournalappmongodb.api.response.ProductResponse;
+import com.vscode.springbootjournalappmongodb.model.FakeUser;
 import com.vscode.springbootjournalappmongodb.model.User;
 import com.vscode.springbootjournalappmongodb.service.FakeStoreApiService;
 import com.vscode.springbootjournalappmongodb.service.UserService;
@@ -52,5 +53,12 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String products = fakeStoreApiService.getProducts();
         return new ResponseEntity<>("Hi " + authentication.getName() + "products are :" + products, HttpStatus.OK);
+    }
+
+    @PostMapping("/create-user")
+    public ResponseEntity<String> createFakeUser(@RequestBody FakeUser fakeUser) throws JsonProcessingException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = fakeStoreApiService.saveUser(fakeUser);
+        return new ResponseEntity<>("Hi " + authentication.getName() + " Your Fake User Id :" + userId, HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package com.vscode.springbootjournalappmongodb.controller;
 
+import com.vscode.springbootjournalappmongodb.cache.AppCache;
 import com.vscode.springbootjournalappmongodb.model.User;
 import com.vscode.springbootjournalappmongodb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,12 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
-    public AdminController(UserService userService) {
-        this.userService = userService;
-    }
+    private AppCache appCache;
+
 
     @GetMapping("/all-users")
     public ResponseEntity<List<User>> getAllUsers(){
@@ -34,5 +35,11 @@ public class AdminController {
     public ResponseEntity<?> createUser(@RequestBody User user){
         userService.saveAdmin(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/clear-app-cache")
+    public String clearCache(){
+        appCache.init();
+        return "Reinitialising and clearing application cache.";
     }
 }

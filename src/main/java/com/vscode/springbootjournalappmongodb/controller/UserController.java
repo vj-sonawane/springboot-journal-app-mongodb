@@ -56,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/create-user")
-    public ResponseEntity<String> createFakeUser(@RequestBody FakeUser fakeUser) throws JsonProcessingException {
+    public ResponseEntity<String> createFakeUser(@RequestBody FakeUser fakeUser) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = fakeStoreApiService.saveUser(fakeUser);
         return new ResponseEntity<>("Hi " + authentication.getName() + " Your Fake User Id :" + userId, HttpStatus.OK);

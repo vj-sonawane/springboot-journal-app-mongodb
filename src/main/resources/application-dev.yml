@@ -4,6 +4,17 @@ spring:
   output:
     ansi:
       enabled: always
+  mail:
+    host: smtp.gmail.com
+    username: vijayuidzephyr@gmail.com
+    password: xrhs rwmp xdoi bcey
+    port: '587'
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
   data:
     mongodb:
       auto-index-creation: 'true'
@@ -23,3 +34,6 @@ logging:
         springbootjournalappmongodb: DEBUG
 
 POST_API: https://fakestoreapi.com/users
+
+
+

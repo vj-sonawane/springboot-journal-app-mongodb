@@ -1,5 +1,6 @@
 package com.vscode.springbootjournalappmongodb.service;
 
+import com.vscode.springbootjournalappmongodb.model.EmailRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -13,15 +14,15 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void senEmail(String to,String subject, String body){
+    public void senEmail(EmailRequest emailRequest){
         try{
             SimpleMailMessage mail = new SimpleMailMessage();
-            mail.setTo(to);
-            mail.setSubject(subject);
-            mail.setText(body);
+            mail.setTo(emailRequest.getTo());
+            mail.setSubject(emailRequest.getSubject());
+            mail.setText(emailRequest.getBody());
             javaMailSender.send(mail);
         }catch (Exception ex){
-            log.error("Exception while sending email: ",ex);
+            log.error("EmailService::Exception while sending email: ",ex);
         }
     }
 

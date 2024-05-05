@@ -1,6 +1,8 @@
 package com.vscode.springbootjournalappmongodb.controller;
 
+import com.vscode.springbootjournalappmongodb.model.EmailRequest;
 import com.vscode.springbootjournalappmongodb.model.User;
+import com.vscode.springbootjournalappmongodb.service.EmailService;
 import com.vscode.springbootjournalappmongodb.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +15,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/public")
 public class PublicController {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
-    public PublicController(UserService userService) {
-        this.userService = userService;
-    }
+    private EmailService emailService;
+
 
     @GetMapping("/health-check")
     public String healthCheck() {
@@ -33,5 +35,15 @@ public class PublicController {
         } catch (Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("send-mail")
+    public String sendEmail(@RequestBody EmailRequest emailRequest){
+        try {
+            emailService.senEmail(emailRequest);
+        }catch (Exception ex){
+         log.error("PublicController::Exception while sending mail: ",ex);
+        }
+        return "Email send successfully...!!!";
     }
 }

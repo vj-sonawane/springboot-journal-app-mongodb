@@ -9,8 +9,8 @@ spring:
       enabled: always
   mail:
     host: smtp.gmail.com
-    username: vijayuidzephyr@gmail.com
-    password: xrhs rwmp xdoi bcey
+    username: ${SPRING_MAIL_USERNAME}
+    password: ${SPRING_MAIL_PASSWORD}
     port: '587'
     properties:
       mail:
@@ -22,12 +22,15 @@ spring:
     mongodb:
       auto-index-creation: 'true'
       database: journaldb
-      uri: mongodb+srv://vijayuidzephyr:HlWm5jvxpat3UBjU@cluster0.wfiuv5m.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      uri: ${MongoDB_Atlas_Cloud_URL}
   application:
     name: JournalManagement
   devtools:
     restart:
       enabled: 'true'
+  cloud:
+    config:
+      uri: http://localhost:8888
 logging:
   file:
     name: loggers.log
